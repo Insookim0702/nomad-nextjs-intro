@@ -1,12 +1,8 @@
 import { useEffect, useState } from 'react'
 import Seo from './Seo'
-const API_KEY = 'd277e1b4016230df2827711ffe3c7c59'
-const BASE_URL = 'https://api.themoviedb.org/3'
 
 function fetchMovieList () {
-  return fetch(
-    `${BASE_URL}/movie/popular?api_key=${API_KEY}&language=en-US&page=1`
-  ).then(resolve => resolve.json())
+  return fetch('api/movies').then(resolve => resolve.json())
 }
 
 export default function index () {
@@ -15,7 +11,6 @@ export default function index () {
   useEffect(async () => {
     const resp = await fetchMovieList()
     setMovieList(resp.results)
-    console.log(resp.results)
   }, [])
   return (
     <div className='gContainer'>
@@ -26,7 +21,7 @@ export default function index () {
           return (
             <div key={movie.id} className='movieBox'>
               <img
-                src={`https://image.tmdb.org/t/p/w200/${movie.poster_path}`}
+                src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`}
               />
               <p>{movie.title}</p>
             </div>
@@ -57,6 +52,9 @@ export default function index () {
 
           p {
             font-weight: 500;
+            padding: 0 20px;
+            margin: 30px 0;
+            text-align: center;
           }
         `}
       </style>
