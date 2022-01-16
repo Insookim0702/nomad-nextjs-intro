@@ -5,19 +5,13 @@ function fetchMovieList () {
   return fetch('api/movies').then(resolve => resolve.json())
 }
 
-export default function index () {
-  const [count, setCount] = useState(0)
-  const [movieList, setMovieList] = useState([])
-  useEffect(async () => {
-    const resp = await fetchMovieList()
-    setMovieList(resp.results)
-  }, [])
+export default function Index ({ results }) {
   return (
     <div className='gContainer'>
       <h1>Movie Popular List</h1>
       <div className='movie-container'>
         <Seo title='Home' />
-        {movieList.map(movie => {
+        {results.map(movie => {
           return (
             <div key={movie.id} className='movieBox'>
               <img
@@ -28,6 +22,7 @@ export default function index () {
           )
         })}
       </div>
+      )
       <style jsx>
         {`
           h1 {
@@ -60,4 +55,11 @@ export default function index () {
       </style>
     </div>
   )
+}
+
+export async function getServerSideProps () {
+  const { results } = await (
+    await fetch(`http://localhost:3000/api/movies`)
+  ).json()
+  return { props: { results } }
 }
