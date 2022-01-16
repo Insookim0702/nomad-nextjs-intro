@@ -26,7 +26,7 @@ export default function Detail ({ movie, params }) {
 export async function getServerSideProps ({ params: { params } }) {
   const [title, id] = params
   const resp = await (
-    await fetch(`http://localhost:3000/api/movies/${id}`)
+    await fetch(`https://nomad-nextjs-intro.vercel.app/api/movies/${id}`)
   ).json()
   return {
     props: {

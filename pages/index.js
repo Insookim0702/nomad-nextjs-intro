@@ -65,7 +65,7 @@ export default function Index ({ results }) {
 
 export async function getServerSideProps () {
   const { results } = await (
-    await fetch(`http://localhost:3000/api/movies`)
+    await fetch(`https://nomad-nextjs-intro.vercel.app/api/movies`)
   ).json()
   return { props: { results } }
 }
